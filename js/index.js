@@ -4,7 +4,7 @@ $(document).on('ready', function() {
     });
 
     $("#record").on('click', function() {
-        chrome.app.window.create('record.html', {
+        chrome.app.window.create('record.html#record', {
             'bounds': {
                 'width': 800,
                 'height': 600
@@ -15,7 +15,7 @@ $(document).on('ready', function() {
     });
 
     $("#manage").on('click', function() {
-        chrome.app.window.create('manage.html', {
+        chrome.app.window.create('manage.html#manage', {
             'bounds': {
                 'width': 800,
                 'height': 600
@@ -26,7 +26,7 @@ $(document).on('ready', function() {
     });
 
     $("#setting").on('click', function() {
-        chrome.app.window.create('setting.html', {
+        chrome.app.window.create('setting.html#setting', {
             'bounds': {
                 'width': 800,
                 'height': 600

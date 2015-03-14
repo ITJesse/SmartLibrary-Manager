@@ -99,7 +99,7 @@ $(document).on('ready', function() {
             // console.log(connectionInfo);
             if (chrome.runtime.lastError) {
                 return layer.alert('打开串口失败，请检查设置', 8, function() {
-                    chrome.app.window.create('setting.html', {
+                    chrome.app.window.create('setting.html#setting', {
                         'bounds': {
                             'width': 800,
                             'height': 600
