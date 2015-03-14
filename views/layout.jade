@@ -1,0 +1,35 @@
+doctype html
+html(lang="en")
+    head
+        title=智慧图书馆管理平台
+
+        link(rel="stylesheet", type="text/css", href="./bootstrap/css/bootstrap.min.css")
+        link(rel="stylesheet", type="text/css", href="./css/jquery.dataTables.min.css")
+        link(rel="stylesheet", type="text/css", href="./css/style.css")
+    
+        script(type='text/javascript', src="./js/jquery.min.js")
+        script(type='text/javascript', src="./bootstrap/js/bootstrap.min.js")
+        script(type='text/javascript', src="./js/jquery.dataTables.min.js")
+        script(type='text/javascript', src="./layer/layer.min.js")
+        script(type='text/javascript', src="./js/button.js")
+    
+    body
+        nav.navbar.navbar-default
+            .container-fluid
+                .navbar-header
+                    a.navbar-brand(href="#") 图书录入
+                .collapse.navbar-collapse#navbar1
+                    ul.nav.navbar-nav
+                        li
+                            a#record(href="#") 图书录入
+                        li
+                            a#manage(href="#") 图书管理
+                        li
+                            a#setting(href="#") 串口设定
+
+                    ul.nav.navbar-nav.navbar-right
+                        li
+                            a#exit(href="#") 退出
+
+        .container-fluid#container
+            block content

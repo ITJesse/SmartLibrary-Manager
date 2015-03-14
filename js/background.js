@@ -6,7 +6,4 @@ chrome.app.runtime.onLaunched.addListener(function() {
         },
         frame: 'none'
     });
-    chrome.serial.getDevices(function(portsArray) {
-        console.log(portsArray);
-    });
 });
