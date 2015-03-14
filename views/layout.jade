@@ -17,13 +17,34 @@ html(lang="en")
         nav.navbar.navbar-default
             .container-fluid
                 .navbar-header
-                    a.navbar-brand(href="#") 图书录入
+                    a.navbar-brand#title(href="#")
                 .collapse.navbar-collapse#navbar1
                     ul.nav.navbar-nav
-                        li
-                            a#record(href="#") 图书录入
-                        li
-                            a#manage(href="#") 图书管理
+                        li.dropdown
+                            a.dropdown-toggle(href="#", data-toggle="dropdown", role="button", aria-expanded="false") 图书相关
+                                span.caret
+                            ul.dropdown-menu(role="menu")
+                                li
+                                    a#record(href="#") 图书录入
+                                li
+                                    a#manage(href="#") 图书管理
+                        li.dropdown
+                            a.dropdown-toggle(href="#", data-toggle="dropdown", role="button", aria-expanded="false") 一卡通相关
+                                span.caret
+                            ul.dropdown-menu(role="menu")
+                                li
+                                    a#bind(href="#") 一卡通绑定
+                                li
+                                    a#unbind(href="#") 一卡通解绑
+                        li.dropdown
+                            a.dropdown-toggle(href="#", data-toggle="dropdown", role="button", aria-expanded="false") 监控相关
+                                span.caret
+                            ul.dropdown-menu(role="menu")
+                                li
+                                    a#xbeeAdd(href="#") 添加监控节点
+                                li
+                                    a#xbeeManage(href="#") 监控节点管理
+                        
                         li
                             a#setting(href="#") 串口设定
 
