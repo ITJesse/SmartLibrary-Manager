@@ -82,7 +82,7 @@ $(document).on('ready', function() {
                     }
                 }
             });
-        }else{
+        } else {
             layer.alert('请检查ISBN和标签号是否填写正确');
         }
     });
@@ -98,7 +98,7 @@ $(document).on('ready', function() {
         }, function(connectionInfo) {
             // console.log(connectionInfo);
             if (chrome.runtime.lastError) {
-                return layer.alert('打开串口失败，请检查设置', 8, function(){
+                return layer.alert('打开串口失败，请检查设置', 8, function() {
                     chrome.app.window.create('setting.html', {
                         'bounds': {
                             'width': 800,
@@ -117,7 +117,7 @@ $(document).on('ready', function() {
         }, function(connectionInfo) {
             // console.log(connectionInfo);
             if (chrome.runtime.lastError) {
-                return layer.alert('打开串口失败，请检查设置', 8, function(){
+                return layer.alert('打开串口失败，请检查设置', 8, function() {
                     chrome.app.window.create('setting.html', {
                         'bounds': {
                             'width': 800,
@@ -173,19 +173,19 @@ $(document).on('ready', function() {
                 console.log(res.slice(0, 4));
                 dataArray = [];
 
-                if(res.slice(0, 4) == '3212'){
+                if (res.slice(0, 4) == '3212') {
                     var list = res.split('3212');
                     list.splice(0, 1);
-                    if(list.length > 1){
+                    if (list.length > 1) {
                         $('#tagIdLabel').removeClass('has-success');
                         $('#tagIdLabel').addClass('has-error');
                         $('#tagId').val('');
                         $('#tagId').attr('placeholder', '检测到多张标签');
                         lastTagId = '';
-                    }else{
+                    } else {
                         var tagId = list[0].slice(2, list[0].length);
                         // console.log(tagId);
-                        if(tagId != lastTagId){
+                        if (tagId != lastTagId) {
                             $('#tagId').val(tagId);
                             checkTagId();
                         }
@@ -202,7 +202,7 @@ $(document).on('ready', function() {
                     // }
                 }
 
-                if(res.slice(0, 4) == '3240'){
+                if (res.slice(0, 4) == '3240') {
                     $('#tagIdLabel').removeClass('has-success');
                     $('#tagIdLabel').addClass('has-error');
                     $('#tagId').val('');
