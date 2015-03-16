@@ -44,12 +44,37 @@
       </div>
     </nav>
     <div id="container" class="container-fluid">
-      <script type="text/javascript" src="./js/record.js"></script>
+      <script type="text/javascript" src="./js/bind.js"></script>
       <form>
         <div class="row">
           <div class="col-xs-8 col-xs-offset-2">
-            <label for="studentId">学号：</label>
-            <input id="studentId" type="text" placeholder="请输入学号并回车，或扫描二维码" class="form-control">
+            <div class="form-group">
+              <label for="studentId">学号：</label>
+              <input id="studentId" type="text" placeholder="请输入学号并回车" class="form-control">
+            </div>
+            <div class="row">
+              <div class="col-xs-8">
+                <div class="form-group">
+                  <label for="name">姓名：</label>
+                  <input id="name" type="text" readonly class="form-control">
+                </div>
+              </div>
+              <div class="col-xs-4">
+                <div class="form-group">
+                  <label for="sex">性别：</label>
+                  <input id="sex" type="text" readonly class="form-control">
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="college">学院：</label>
+              <input id="college" type="text" readonly class="form-control">
+            </div>
+            <div class="form-group">
+              <label for="class">班级：</label>
+              <input id="class" type="text" readonly class="form-control">
+            </div>
+            <h3 id="cardInfo" class="text-center">扫描卡片或手机进行绑定</h3>
           </div>
         </div>
       </form>

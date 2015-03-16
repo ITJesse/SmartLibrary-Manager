@@ -1,9 +1,29 @@
 extends layout
 
 block content
-    script(type='text/javascript', src="./js/record.js")
+    script(type='text/javascript', src="./js/bind.js")
     form
         .row
             .col-xs-8.col-xs-offset-2
-                label(for='studentId') 学号：
-                input#studentId.form-control(type='text', placeholder='请输入学号并回车，或扫描二维码')
+                .form-group
+                    label(for='studentId') 学号：
+                    input#studentId.form-control(type='text', placeholder='请输入学号并回车')
+                .row
+                    .col-xs-8
+                        .form-group
+                            label(for='name') 姓名：
+                            input#name.form-control(type='text', readonly)
+                    .col-xs-4
+                        .form-group
+                            label(for='sex') 性别：
+                            input#sex.form-control(type='text', readonly)
+                .form-group
+                    label(for='college') 学院：
+                    input#college.form-control(type='text', readonly)
+                .form-group
+                    label(for='class') 班级：
+                    input#class.form-control(type='text', readonly)
+                        
+                h3.text-center#cardInfo 扫描卡片或手机进行绑定
+                    
+                

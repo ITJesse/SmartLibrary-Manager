@@ -6,9 +6,10 @@ $(document).on('ready', function() {
                 if (ports[i].path.indexOf('Bluetooth') == -1 && ports[i].path.indexOf('tty') == -1)
                     $('select').append('<option value="' + ports[i].path + '">' + ports[i].path + '</option>');
             }
-            chrome.storage.local.get(['barcodeScannerCom', 'tagScannerCom'], function(data) {
+            chrome.storage.local.get(['barcodeScannerCom', 'tagScannerCom', 'nfcCom'], function(data) {
                 $('#barcodeScanner').val(data.barcodeScannerCom);
                 $('#tagScanner').val(data.tagScannerCom);
+                $('#nfc').val(data.nfcCom);
             });
         });
     };
@@ -22,9 +23,11 @@ $(document).on('ready', function() {
     $('#save').on('click', function() {
         var barcodeScannerCom = $('#barcodeScanner').val();
         var tagScannerCom = $('#tagScanner').val();
+        var nfcCom = $('#nfc').val();
         chrome.storage.local.set({
             'barcodeScannerCom': barcodeScannerCom,
-            'tagScannerCom': tagScannerCom
+            'tagScannerCom': tagScannerCom,
+            'nfcCom': nfcCom
         }, function() {
             layer.alert('设置已保存', 1);
         });

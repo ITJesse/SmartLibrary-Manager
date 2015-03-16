@@ -51,6 +51,17 @@ $(document).on('ready', function() {
         window.close();
     });
 
+    $("#bind").on('click', function() {
+        chrome.app.window.create('bind.html#bind', {
+            'bounds': {
+                'width': 800,
+                'height': 600
+            },
+            frame: 'none'
+        });
+        window.close();
+    });
+
     $("#exit").on('click', function() {
         window.close();
     });

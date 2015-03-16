@@ -89,10 +89,6 @@ $(document).on('ready', function() {
 
     var barcodeScannerComId, tagScannerComId;
     chrome.storage.local.get(['barcodeScannerCom', 'tagScannerCom'], function(data) {
-        if (chrome.runtime.lastError) {
-            return layer.alert('获取设置失败');
-        }
-
         chrome.serial.connect(data.barcodeScannerCom, {
             bitrate: 9600
         }, function(connectionInfo) {
