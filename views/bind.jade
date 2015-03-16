@@ -1,0 +1,9 @@
+extends layout
+
+block content
+    script(type='text/javascript', src="./js/record.js")
+    form
+        .row
+            .col-xs-8.col-xs-offset-2
+                label(for='studentId') 学号：
+                input#studentId.form-control(type='text', placeholder='请输入学号并回车，或扫描二维码')

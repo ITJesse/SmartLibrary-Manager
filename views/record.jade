@@ -9,25 +9,26 @@ block content
                     .col-xs-8
                         #isbnLabel.form-group.has-error.isbn
                             label(for='isbn') ISBN：
-                            input#isbn.form-control(type='text', placeholder='请输入ISBN号，回车检索，或等待扫描器数据')                         
+                            input#isbn.form-control(type='text', placeholder='请输入ISBN号，回车检索，或等待扫描器数据')
                         #tagIdLabel.form-group.has-error.tagId
                             label(for='tagId') 标签号：
-                            input#tagId.form-control(type='text', placeholder='请等待读卡器返回数据', readonly='')                        
+                            input#tagId.form-control(type='text', placeholder='请等待读卡器返回数据', readonly='')
                         .form-group.publisher
                             label(for='publisher') 出版社：
+                            input#publisher.form-control(type='text', placeholder='请输入出版社')
                     .col-xs-4
-                        img#bookImg.img-thumbnail.bookImg(src='./images/noimg.png')               
+                        img#bookImg.img-thumbnail.bookImg(src='./images/noimg.png')
                 .row
                     .col-xs-8
                         .form-group
                             label(for='bookName') 书名：
-                            input#bookName.form-control(type='text', placeholder='请输入书名')                  
+                            input#bookName.form-control(type='text', placeholder='请输入书名')
                     .col-xs-4
                         .form-group
                             label(for='author') 作者：
-                            input#author.form-control(type='text', placeholder='请输入作者')              
-                        .form-group
-                            label(for='info') 简介：
-                            textarea#info.form-control(rows='5')                
-                        button#submit.btn.btn-default(type='button') 提交
-                        button#reset.btn.btn-default.btn-danger(type='reset') 重置
+                            input#author.form-control(type='text', placeholder='请输入作者')  
+                .form-group
+                    label(for='info') 简介：
+                    textarea#info.form-control(rows='5')                
+                button#submit.btn.btn-default(type='button') 提交
+                button#reset.btn.btn-default.btn-danger(type='reset') 重置
