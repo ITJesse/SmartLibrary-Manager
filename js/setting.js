@@ -24,12 +24,14 @@ $(document).on('ready', function() {
         var barcodeScannerCom = $('#barcodeScanner').val();
         var tagScannerCom = $('#tagScanner').val();
         var nfcCom = $('#nfc').val();
+
         chrome.storage.local.set({
             'barcodeScannerCom': barcodeScannerCom,
             'tagScannerCom': tagScannerCom,
             'nfcCom': nfcCom
         }, function() {
             layer.alert('设置已保存', 1);
+            chrome.runtime.sendMessage(null, 'reinit serialport');
         });
     });
 });

@@ -87,133 +87,86 @@ $(document).on('ready', function() {
         }
     });
 
-    var barcodeScannerComId, tagScannerComId;
-    chrome.storage.local.get(['barcodeScannerCom', 'tagScannerCom'], function(data) {
-        chrome.serial.connect(data.barcodeScannerCom, {
-            bitrate: 9600
-        }, function(connectionInfo) {
-            // console.log(connectionInfo);
-            if (chrome.runtime.lastError) {
-                return layer.alert('打开串口失败，请检查设置', 8, function() {
-                    chrome.app.window.create('setting.html#setting', {
-                        'bounds': {
-                            'width': 800,
-                            'height': 600
-                        },
-                        frame: 'none'
-                    });
-                    window.close();
-                });
-            }
-            barcodeScannerConn = connectionInfo;
-        });
+    chrome.runtime.getBackgroundPage(function(backgroundPage) {
+        var barcodeScannerConn = backgroundPage.barcodeScannerConn;
+        var tagScannerConn = backgroundPage.tagScannerConn;
 
-        chrome.serial.connect(data.tagScannerCom, {
-            bitrate: 115200
-        }, function(connectionInfo) {
-            // console.log(connectionInfo);
-            if (chrome.runtime.lastError) {
-                return layer.alert('打开串口失败，请检查设置', 8, function() {
-                    chrome.app.window.create('setting.html#setting', {
-                        'bounds': {
-                            'width': 800,
-                            'height': 600
-                        },
-                        frame: 'none'
-                    });
-                    window.close();
-                });
-            }
-            tagScannerConn = connectionInfo;
-            var sendData = new ArrayBuffer(3);
-            var bufView = new Uint8Array(sendData);
-            bufView[0] = parseInt(0x31, 10);
-            bufView[1] = parseInt(0x03, 10);
-            bufView[2] = parseInt(0x01, 10);
-            setInterval(function() {
-                chrome.serial.send(tagScannerConn.connectionId, sendData, function(sendInfo) {
-                    // console.log(sendData);
-                });
-            }, 500);
-        });
-    });
+        var stringReceived = '';
+        var dataArray = [];
+        var lastReceiveTime;
+        var lastTagId = '';
 
-    var stringReceived = '';
-    var dataArray = [];
-    var lastReceiveTime;
-    var lastTagId = '';
-
-    var onReceiveCallback = function(info) {
-        // console.log(info);
-        var str = '';
-        if (info.connectionId == barcodeScannerConn.connectionId && info.data) {
-            str = String.fromCharCode.apply(null, new Uint8Array(info.data));
-            if (str.charAt(str.length - 1) === '\n') {
-                stringReceived += str.substring(0, str.length - 1);
-                // console.log('Get ISBN: ' + stringReceived);
-                $('#isbn').val(stringReceived);
-                getIsbnInfo();
-                stringReceived = '';
-            } else {
-                stringReceived += str;
-            }
-        }
-
-        if (info.connectionId == tagScannerConn.connectionId && info.data) {
-            if ((new Date()).valueOf() - lastReceiveTime > 100) {
-                // console.log(dataArray);
-                var res = '';
-                for (var j in dataArray) {
-                    res += dataArray[j].toString(16);
+        var onReceiveCallback = function(info) {
+            // console.log(info);
+            var str = '';
+            if (info.connectionId == barcodeScannerConn.connectionId && info.data) {
+                str = String.fromCharCode.apply(null, new Uint8Array(info.data));
+                if (str.charAt(str.length - 1) === '\n') {
+                    stringReceived += str.substring(0, str.length - 1);
+                    // console.log('Get ISBN: ' + stringReceived);
+                    $('#isbn').val(stringReceived);
+                    getIsbnInfo();
+                    stringReceived = '';
+                } else {
+                    stringReceived += str;
                 }
-                console.log(res.slice(0, 4));
-                dataArray = [];
+            }
 
-                if (res.slice(0, 4) == '3212') {
-                    var list = res.split('3212');
-                    list.splice(0, 1);
-                    if (list.length > 1) {
+            if (info.connectionId == tagScannerConn.connectionId && info.data) {
+                if ((new Date()).valueOf() - lastReceiveTime > 100) {
+                    // console.log(dataArray);
+                    var res = '';
+                    for (var j in dataArray) {
+                        res += dataArray[j].toString(16);
+                    }
+                    console.log(res.slice(0, 4));
+                    dataArray = [];
+
+                    if (res.slice(0, 4) == '3212') {
+                        var list = res.split('3212');
+                        list.splice(0, 1);
+                        if (list.length > 1) {
+                            $('#tagIdLabel').removeClass('has-success');
+                            $('#tagIdLabel').addClass('has-error');
+                            $('#tagId').val('');
+                            $('#tagId').attr('placeholder', '检测到多张标签');
+                            lastTagId = '';
+                        } else {
+                            var tagId = list[0].slice(2, list[0].length);
+                            // console.log(tagId);
+                            if (tagId != lastTagId) {
+                                $('#tagId').val(tagId);
+                                checkTagId();
+                            }
+                            lastTagId = tagId;
+                        }
+
+                        // if(parseInt(res.slice(4, 5), 16) == list.length){
+                        //     console.log(list);
+                        //     for(var k in list){
+                        //         if(list[k].length == 24){
+                        //             // some code
+                        //         }
+                        //     }
+                        // }
+                    }
+
+                    if (res.slice(0, 4) == '3240') {
                         $('#tagIdLabel').removeClass('has-success');
                         $('#tagIdLabel').addClass('has-error');
                         $('#tagId').val('');
-                        $('#tagId').attr('placeholder', '检测到多张标签');
+                        $('#tagId').attr('placeholder', '未检测到标签');
                         lastTagId = '';
-                    } else {
-                        var tagId = list[0].slice(2, list[0].length);
-                        // console.log(tagId);
-                        if (tagId != lastTagId) {
-                            $('#tagId').val(tagId);
-                            checkTagId();
-                        }
-                        lastTagId = tagId;
                     }
-
-                    // if(parseInt(res.slice(4, 5), 16) == list.length){
-                    //     console.log(list);
-                    //     for(var k in list){
-                    //         if(list[k].length == 24){
-                    //             // some code
-                    //         }
-                    //     }
-                    // }
                 }
-
-                if (res.slice(0, 4) == '3240') {
-                    $('#tagIdLabel').removeClass('has-success');
-                    $('#tagIdLabel').addClass('has-error');
-                    $('#tagId').val('');
-                    $('#tagId').attr('placeholder', '未检测到标签');
-                    lastTagId = '';
+                var bufView = new Uint8Array(info.data);
+                for (var i in bufView) {
+                    // console.log(bufView[i]);
+                    dataArray.push(bufView[i]);
+                    lastReceiveTime = (new Date()).valueOf();
                 }
             }
-            var bufView = new Uint8Array(info.data);
-            for (var i in bufView) {
-                // console.log(bufView[i]);
-                dataArray.push(bufView[i]);
-                lastReceiveTime = (new Date()).valueOf();
-            }
-        }
-    };
+        };
+    });
 
-    chrome.serial.onReceive.addListener(onReceiveCallback);
 });
