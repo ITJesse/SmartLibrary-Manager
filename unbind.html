@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title></title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="./bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="./css/jquery.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="./css/style.css">
+    <script type="text/javascript" src="./js/common/jquery.min.js"></script>
+    <script type="text/javascript" src="./bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="./js/common/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="./layer/layer.min.js"></script>
+    <script type="text/javascript" src="./js/button.js"></script>
+  </head>
+  <body>
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header"><a id="title" href="#" class="navbar-brand"></a></div>
+        <div id="navbar1" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li class="dropdown"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="dropdown-toggle">图书相关<span class="caret"></span></a>
+              <ul role="menu" class="dropdown-menu">
+                <li><a id="record" href="#">图书录入</a></li>
+                <li><a id="manage" href="#">图书管理</a></li>
+              </ul>
+            </li>
+            <li class="dropdown"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="dropdown-toggle">一卡通相关<span class="caret"></span></a>
+              <ul role="menu" class="dropdown-menu">
+                <li><a id="bind" href="#">一卡通绑定</a></li>
+                <li><a id="unbind" href="#">一卡通解绑</a></li>
+              </ul>
+            </li>
+            <li class="dropdown"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="dropdown-toggle">监控相关<span class="caret"></span></a>
+              <ul role="menu" class="dropdown-menu">
+                <li><a id="xbeeAdd" href="#">添加监控节点</a></li>
+                <li><a id="xbeeManage" href="#">监控节点管理</a></li>
+              </ul>
+            </li>
+            <li><a id="setting" href="#">串口设定</a></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a id="exit" href="#">退出</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div id="container" class="container-fluid">
+      <script type="text/javascript" src="./js/unbind.js"></script>
+      <form>
+        <div class="row">
+          <div class="col-xs-8 col-xs-offset-2">
+            <input id="uid" type="text" readonly class="hidden">
+            <div class="form-group">
+              <label for="studentId">学号：</label>
+              <input id="studentId" type="text" readonly class="form-control">
+            </div>
+            <div class="row">
+              <div class="col-xs-8">
+                <div class="form-group">
+                  <label for="name">姓名：</label>
+                  <input id="name" type="text" readonly class="form-control">
+                </div>
+              </div>
+              <div class="col-xs-4">
+                <div class="form-group">
+                  <label for="sex">性别：</label>
+                  <input id="sex" type="text" readonly class="form-control">
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="college">学院：</label>
+              <input id="college" type="text" readonly class="form-control">
+            </div>
+            <div class="form-group">
+              <label for="class">班级：</label>
+              <input id="class" type="text" readonly class="form-control">
+            </div>
+            <h3 id="cardInfo" class="text-center">扫描卡片或手机进行解绑</h3>
+            <button id="submit" class="btn btn-danger btn-block hidden">确定解绑</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </body>
+</html>

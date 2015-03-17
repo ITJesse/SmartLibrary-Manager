@@ -97,7 +97,7 @@ $(document).on('ready', function() {
         var lastTagId = '';
 
         var onReceiveCallback = function(info) {
-            // console.log(info);
+            console.log(info);
             var str = '';
             if (info.connectionId == barcodeScannerConn.connectionId && info.data) {
                 str = String.fromCharCode.apply(null, new Uint8Array(info.data));
@@ -167,6 +167,7 @@ $(document).on('ready', function() {
                 }
             }
         };
+        chrome.serial.onReceive.addListener(onReceiveCallback);
     });
 
 });
