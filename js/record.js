@@ -96,8 +96,11 @@ $(document).on('ready', function() {
         var lastReceiveTime;
         var lastTagId = '';
 
+        var type;
+        var status = 0;
+
         var onReceiveCallback = function(info) {
-            console.log(info);
+            // console.log(info);
             var str = '';
             if (info.connectionId == barcodeScannerConn.connectionId && info.data) {
                 str = String.fromCharCode.apply(null, new Uint8Array(info.data));
@@ -114,55 +117,78 @@ $(document).on('ready', function() {
 
             if (info.connectionId == tagScannerConn.connectionId && info.data) {
                 if ((new Date()).valueOf() - lastReceiveTime > 100) {
-                    // console.log(dataArray);
-                    var res = '';
-                    for (var j in dataArray) {
-                        res += dataArray[j].toString(16);
+                    if(dataArray[0] == parseInt(0x32, 10) && dataArray[1] == parseInt(0x12, 10) && dataArray[2] == 1){
+                        if(type == 1 && status > 3){
+                            var tagCount = dataArray[2];
+                            if(/^[0-9]*[1-9][0-9]*$/.test(dataArray.length / tagCount)){
+                                for(var i=0; i<tagCount; i++){
+                                    var tag = [];
+                                    for(var j=i*18+7; j<(i+1)*18; j++){
+                                        tag.push(dataArray[j]);
+                                    }
+                                    var tagId = '';
+                                    for(var k in tag){
+                                        var tmp = tag[k].toString(16);
+                                        if(tmp.length < 2)
+                                            tmp = '0' + tmp;
+                                        tagId += tmp;
+                                    }
+                                    if (tagId != lastTagId) {
+                                        $('#tagId').val(tagId);
+                                        checkTagId();
+                                    }
+                                    lastTagId = tagId;
+                                }
+                            }
+                        }
+                        else if(type == 1 && status <= 3){
+                            status ++;
+                        }
+                        else if(type != 1){
+                            status = 1;
+                            type = 1;
+                        }
                     }
-                    console.log(res.slice(0, 4));
-                    dataArray = [];
 
-                    if (res.slice(0, 4) == '3212') {
-                        var list = res.split('3212');
-                        list.splice(0, 1);
-                        if (list.length > 1) {
+                    if(dataArray[0] == parseInt(0x32, 10) && dataArray[2] > 1){
+                        if(type == 2 && status > 3){
                             $('#tagIdLabel').removeClass('has-success');
                             $('#tagIdLabel').addClass('has-error');
                             $('#tagId').val('');
                             $('#tagId').attr('placeholder', '检测到多张标签');
                             lastTagId = '';
-                        } else {
-                            var tagId = list[0].slice(2, list[0].length);
-                            // console.log(tagId);
-                            if (tagId != lastTagId) {
-                                $('#tagId').val(tagId);
-                                checkTagId();
-                            }
-                            lastTagId = tagId;
                         }
-
-                        // if(parseInt(res.slice(4, 5), 16) == list.length){
-                        //     console.log(list);
-                        //     for(var k in list){
-                        //         if(list[k].length == 24){
-                        //             // some code
-                        //         }
-                        //     }
-                        // }
+                        else if(type == 2 && status <= 3){
+                            status ++;
+                        }
+                        else if(type != 2){
+                            status = 1;
+                            type = 2;
+                        }
                     }
 
-                    if (res.slice(0, 4) == '3240') {
-                        $('#tagIdLabel').removeClass('has-success');
-                        $('#tagIdLabel').addClass('has-error');
-                        $('#tagId').val('');
-                        $('#tagId').attr('placeholder', '未检测到标签');
-                        lastTagId = '';
+                    if(dataArray[0] == parseInt(0x32, 10) && dataArray[1] == parseInt(0x04, 10)){
+                        if(type == 3 && status > 3){
+                            $('#tagIdLabel').removeClass('has-success');
+                            $('#tagIdLabel').addClass('has-error');
+                            $('#tagId').val('');
+                            $('#tagId').attr('placeholder', '未检测到标签');
+                            lastTagId = '';
+                        }
+                        else if(type == 3 && status <= 3){
+                            status ++;
+                        }
+                        else if(type != 3){
+                            status = 1;
+                            type = 3;
+                        }
                     }
+                    dataArray = [];
                 }
                 var bufView = new Uint8Array(info.data);
-                for (var i in bufView) {
+                for (var a in bufView) {
                     // console.log(bufView[i]);
-                    dataArray.push(bufView[i]);
+                    dataArray.push(bufView[a]);
                     lastReceiveTime = (new Date()).valueOf();
                 }
             }
