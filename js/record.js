@@ -117,8 +117,9 @@ $(document).on('ready', function() {
 
             if (info.connectionId == tagScannerConn.connectionId && info.data) {
                 if ((new Date()).valueOf() - lastReceiveTime > 100) {
-                    if(dataArray[0] == parseInt(0x32, 10) && dataArray[1] == parseInt(0x12, 10) && dataArray[2] == 1){
-                        if(type == 1 && status > 3){
+                    console.log(dataArray);
+                    if(dataArray[0] == parseInt(0x32, 10) && dataArray[2] == 1){
+                        if(type == 1 && status > 2){
                             var tagCount = dataArray[2];
                             if(/^[0-9]*[1-9][0-9]*$/.test(dataArray.length / tagCount)){
                                 for(var i=0; i<tagCount; i++){
@@ -141,7 +142,7 @@ $(document).on('ready', function() {
                                 }
                             }
                         }
-                        else if(type == 1 && status <= 3){
+                        else if(type == 1 && status <= 2){
                             status ++;
                         }
                         else if(type != 1){
@@ -151,7 +152,7 @@ $(document).on('ready', function() {
                     }
 
                     if(dataArray[0] == parseInt(0x32, 10) && dataArray[2] > 1){
-                        if(type == 2 && status > 3){
+                        if(type == 2 && status > 2){
                             $('#tagIdLabel').removeClass('has-success');
                             $('#tagIdLabel').addClass('has-error');
                             $('#tagId').val('');
@@ -168,14 +169,14 @@ $(document).on('ready', function() {
                     }
 
                     if(dataArray[0] == parseInt(0x32, 10) && dataArray[1] == parseInt(0x04, 10)){
-                        if(type == 3 && status > 3){
+                        if(type == 3 && status > 2){
                             $('#tagIdLabel').removeClass('has-success');
                             $('#tagIdLabel').addClass('has-error');
                             $('#tagId').val('');
                             $('#tagId').attr('placeholder', '未检测到标签');
                             lastTagId = '';
                         }
-                        else if(type == 3 && status <= 3){
+                        else if(type == 3 && status <= 2){
                             status ++;
                         }
                         else if(type != 3){
