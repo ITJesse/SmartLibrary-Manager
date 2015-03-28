@@ -28,7 +28,7 @@ $(document).on('ready', function() {
     var checkTagId = function() {
         var tagId = $('#tagId').val();
         $.ajax({
-            url: 'http://127.0.0.1:3000/api/CheckTagId',
+            url: 'http://42.96.200.228:3001/api/CheckTagId',
             type: 'get',
             data: 'tagId=' + tagId,
             success: function(res) {
@@ -69,7 +69,7 @@ $(document).on('ready', function() {
         var image = $('#bookImg').data('src');
         if (isbn && tagId) {
             $.ajax({
-                url: 'http://127.0.0.1:3000/api/InsertBook',
+                url: 'http://42.96.200.228:3001/api/InsertBook',
                 type: 'post',
                 data: '&isbn=' + isbn + '&tagId=' + tagId + '&title=' + title + '&author=' + author + '&publisher=' + publisher + '&summary=' + summary + '&image=' + image,
                 success: function(res) {

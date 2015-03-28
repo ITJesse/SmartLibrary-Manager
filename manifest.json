@@ -21,6 +21,6 @@
         "http://img3.douban.com/*",
         "http://img4.douban.com/*",
         "http://img5.douban.com/*",
-        "http://127.0.0.1:3000/*"
+        "http://42.96.200.228:3001/*"
     ]
 }

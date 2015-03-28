@@ -2,7 +2,7 @@ $(document).on('ready', function() {
     var getStudentInfo = function() {
         var studentId = $('#studentId').val();
         $.ajax({
-            url: 'http://127.0.0.1:3000/api/GetStudentInfo',
+            url: 'http://42.96.200.228:3001/api/GetStudentInfo',
             data: 'studentId=' + studentId,
             type: 'get',
             dataType: 'json',
@@ -27,7 +27,7 @@ $(document).on('ready', function() {
     var submitBind = function(uid) {
         var studentId = $('#studentId').val();
         $.ajax({
-            url: 'http://127.0.0.1:3000/api/BindCard',
+            url: 'http://42.96.200.228:3001/api/BindCard',
             data: 'uid=' + uid + '&studentId=' + studentId,
             type: 'get',
             success: function(res) {
@@ -47,7 +47,7 @@ $(document).on('ready', function() {
 
     var checkCardId = function(uid) {
         $.ajax({
-            url: 'http://127.0.0.1:3000/api/CheckCardId',
+            url: 'http://42.96.200.228:3001/api/CheckCardId',
             data: 'uid=' + uid,
             type: 'get',
             success: function(res) {

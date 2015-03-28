@@ -1,7 +1,7 @@
 $(document).on('ready', function() {
     var getStudentInfo = function(uid) {
         $.ajax({
-            url: 'http://127.0.0.1:3000/api/GetCardInfo',
+            url: 'http://42.96.200.228:3001/api/GetCardInfo',
             data: 'uid=' + uid,
             type: 'get',
             dataType: 'json',
@@ -26,7 +26,7 @@ $(document).on('ready', function() {
     var submitUnBind = function() {
         var uid = $('#uid').val();
         $.ajax({
-            url: 'http://127.0.0.1:3000/api/UnBindCard',
+            url: 'http://42.96.200.228:3001/api/UnBindCard',
             data: 'uid=' + uid,
             type: 'get',
             success: function(res) {

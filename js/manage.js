@@ -1,5 +1,5 @@
 $(document).on('ready', function() {
     $('#bookTable').dataTable({
-        "ajax": "http://127.0.0.1:3000/api/GetBookList"
+        "ajax": "http://42.96.200.228:3001/api/GetBookList"
     });
 });
