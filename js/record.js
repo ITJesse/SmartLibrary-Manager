@@ -28,18 +28,20 @@ $(document).on('ready', function() {
     var checkTagId = function() {
         var tagId = $('#tagId').val();
         $.ajax({
-            url: 'http://42.96.200.228:3001/api/CheckTagId',
+            url: 'http://library.itjesse.cn/API/Client/CheckTagId',
             type: 'get',
             data: 'tagId=' + tagId,
             success: function(res) {
-                if (res == '-1') {
-                    $('#tagIdLabel').removeClass('has-success');
-                    $('#tagIdLabel').addClass('has-error');
-                    $('#tagId').val('');
-                    $('#tagId').attr('placeholder', '标签已录入');
-                } else {
-                    $('#tagIdLabel').addClass('has-success');
-                    $('#tagIdLabel').removeClass('has-error');
+                if(!res.error){
+                    if (res.check == '1') {
+                        $('#tagIdLabel').removeClass('has-success');
+                        $('#tagIdLabel').addClass('has-error');
+                        $('#tagId').val('');
+                        $('#tagId').attr('placeholder', '标签已录入');
+                    } else {
+                        $('#tagIdLabel').addClass('has-success');
+                        $('#tagIdLabel').removeClass('has-error');
+                    }
                 }
             }
         });
@@ -69,7 +71,7 @@ $(document).on('ready', function() {
         var image = $('#bookImg').data('src');
         if (isbn && tagId) {
             $.ajax({
-                url: 'http://42.96.200.228:3001/api/InsertBook',
+                url: 'http://library.itjesse.cn/API/Client/InsertBook',
                 type: 'post',
                 data: '&isbn=' + isbn + '&tagId=' + tagId + '&title=' + title + '&author=' + author + '&publisher=' + publisher + '&summary=' + summary + '&image=' + image,
                 success: function(res) {

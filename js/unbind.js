@@ -1,18 +1,18 @@
 $(document).on('ready', function() {
     var getStudentInfo = function(uid) {
         $.ajax({
-            url: 'http://42.96.200.228:3001/api/GetCardInfo',
+            url: 'http://library.itjesse.cn/API/Client/GetCardInfo',
             data: 'uid=' + uid,
             type: 'get',
             dataType: 'json',
             success: function(res) {
                 if (res.error != '-1') {
                     $('#uid').val(uid);
-                    $('#studentId').val(res.studentId);
-                    $('#name').val(res.name);
-                    $('#sex').val(res.sex);
-                    $('#college').val(res.college);
-                    $('#class').val(res.class);
+                    $('#studentId').val(res.info.studentId);
+                    $('#name').val(res.info.name);
+                    $('#sex').val(res.info.sex);
+                    $('#college').val(res.info.college);
+                    $('#class').val(res.info.class);
                     $('#submit').removeClass('hidden');
                     $('#cardInfo').html('');
                 } else {
@@ -26,7 +26,7 @@ $(document).on('ready', function() {
     var submitUnBind = function() {
         var uid = $('#uid').val();
         $.ajax({
-            url: 'http://42.96.200.228:3001/api/UnBindCard',
+            url: 'http://library.itjesse.cn/API/Client/UnBindCard',
             data: 'uid=' + uid,
             type: 'get',
             success: function(res) {

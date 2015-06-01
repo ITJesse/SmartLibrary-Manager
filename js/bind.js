@@ -2,18 +2,19 @@ $(document).on('ready', function() {
     var getStudentInfo = function() {
         var studentId = $('#studentId').val();
         $.ajax({
-            url: 'http://42.96.200.228:3001/api/GetStudentInfo',
+            url: 'http://library.itjesse.cn/API/Client/GetStudentInfo',
             data: 'studentId=' + studentId,
             type: 'get',
             dataType: 'json',
             success: function(res) {
-                if (res.name) {
-                    $('#name').val(res.name);
-                    $('#sex').val(res.sex);
-                    $('#college').val(res.college);
-                    $('#class').val(res.class);
-                    $('#studentId').parent().removeClass('has-error');
-                    $('#studentId').parent().addClass('has-success');
+                if(!res.error){
+                        $('#name').val(res.info.name);
+                        $('#sex').val(res.info.sex);
+                        $('#college').val(res.info.college);
+                        $('#class').val(res.info.class);
+                        $('#studentId').parent().removeClass('has-error');
+                        $('#studentId').parent().addClass('has-success');
+
                 } else {
                     layer.alert('学号错误');
                     $('#studentId').val('');
@@ -27,11 +28,11 @@ $(document).on('ready', function() {
     var submitBind = function(uid) {
         var studentId = $('#studentId').val();
         $.ajax({
-            url: 'http://42.96.200.228:3001/api/BindCard',
+            url: 'http://library.itjesse.cn/API/Client/BindCard',
             data: 'uid=' + uid + '&studentId=' + studentId,
             type: 'get',
             success: function(res) {
-                if (res == '1') {
+                if (!res.error) {
                     layer.alert('绑定成功', 1);
                     $('#cardInfo').html('扫描卡片或手机进行绑定');
                     $('#studentId').parent().removeClass('has-success');
@@ -47,14 +48,18 @@ $(document).on('ready', function() {
 
     var checkCardId = function(uid) {
         $.ajax({
-            url: 'http://42.96.200.228:3001/api/CheckCardId',
+            url: 'http://library.itjesse.cn/API/Client/CheckCardId',
             data: 'uid=' + uid,
             type: 'get',
             success: function(res) {
-                if (res == '-1') {
-                    $('#cardInfo').html('卡片已录入');
-                } else {
-                    submitBind(uid);
+                if(!res.error) {
+                    if (res.check == '1') {
+                        $('#cardInfo').html('卡片已录入');
+                    } else {
+                        submitBind(uid);
+                    }
+                }else{
+                    $('#cardInfo').html('内部错误');
                 }
             }
         });
