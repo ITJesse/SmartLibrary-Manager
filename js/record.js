@@ -28,7 +28,7 @@ $(document).on('ready', function() {
     var checkTagId = function() {
         var tagId = $('#tagId').val();
         $.ajax({
-            url: 'http://library.itjesse.cn/API/Client/CheckTagId',
+            url: 'http://192.168.1.204:3000/API/Client/CheckTagId',
             type: 'get',
             data: 'tagId=' + tagId,
             success: function(res) {
@@ -71,7 +71,7 @@ $(document).on('ready', function() {
         var image = $('#bookImg').data('src');
         if (isbn && tagId) {
             $.ajax({
-                url: 'http://library.itjesse.cn/API/Client/InsertBook',
+                url: 'http://192.168.1.204:3000/API/Client/InsertBook',
                 type: 'post',
                 data: '&isbn=' + isbn + '&tagId=' + tagId + '&title=' + title + '&author=' + author + '&publisher=' + publisher + '&summary=' + summary + '&image=' + image,
                 success: function(res) {

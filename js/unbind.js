@@ -1,7 +1,7 @@
 $(document).on('ready', function() {
     var getStudentInfo = function(uid) {
         $.ajax({
-            url: 'http://library.itjesse.cn/API/Client/GetCardInfo',
+            url: 'http://192.168.1.204:3000/API/Client/GetCardInfo',
             data: 'uid=' + uid,
             type: 'get',
             dataType: 'json',
@@ -26,7 +26,7 @@ $(document).on('ready', function() {
     var submitUnBind = function() {
         var uid = $('#uid').val();
         $.ajax({
-            url: 'http://library.itjesse.cn/API/Client/UnBindCard',
+            url: 'http://192.168.1.204:3000/API/Client/UnBindCard',
             data: 'uid=' + uid,
             type: 'get',
             success: function(res) {

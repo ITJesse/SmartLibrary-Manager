@@ -21,6 +21,6 @@
         "http://img3.douban.com/*",
         "http://img4.douban.com/*",
         "http://img5.douban.com/*",
-        "http://library.itjesse.cn/API/Client/*"
+        "http://192.168.1.204:3000/API/Client/*"
     ]
 }

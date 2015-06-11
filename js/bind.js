@@ -2,7 +2,7 @@ $(document).on('ready', function() {
     var getStudentInfo = function() {
         var studentId = $('#studentId').val();
         $.ajax({
-            url: 'http://library.itjesse.cn/API/Client/GetStudentInfo',
+            url: 'http://192.168.1.204:3000/API/Client/GetStudentInfo',
             data: 'studentId=' + studentId,
             type: 'get',
             dataType: 'json',
@@ -28,7 +28,7 @@ $(document).on('ready', function() {
     var submitBind = function(uid) {
         var studentId = $('#studentId').val();
         $.ajax({
-            url: 'http://library.itjesse.cn/API/Client/BindCard',
+            url: 'http://192.168.1.204:3000/API/Client/BindCard',
             data: 'uid=' + uid + '&studentId=' + studentId,
             type: 'get',
             success: function(res) {
@@ -48,7 +48,7 @@ $(document).on('ready', function() {
 
     var checkCardId = function(uid) {
         $.ajax({
-            url: 'http://library.itjesse.cn/API/Client/CheckCardId',
+            url: 'http://192.168.1.204:3000/API/Client/CheckCardId',
             data: 'uid=' + uid,
             type: 'get',
             success: function(res) {
