@@ -108,7 +108,7 @@ $(document).on('ready', function() {
                 str = String.fromCharCode.apply(null, new Uint8Array(info.data));
                 if (str.charAt(str.length - 1) === '\n') {
                     stringReceived += str.substring(0, str.length - 1);
-                    // console.log('Get ISBN: ' + stringReceived);
+                    console.log('Get ISBN: ' + stringReceived);
                     $('#isbn').val(stringReceived);
                     getIsbnInfo();
                     stringReceived = '';
